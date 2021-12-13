@@ -3,10 +3,15 @@ import axios from "axios"
 import { Button } from "@material-ui/core";
 import useStyle from './style'
 import {useNavigate} from 'react-router-dom';
+// import Recaptcha from 'react-recaptcha';
+import ReCAPTCHA from "react-google-recaptcha";
 
 const Form = (props) => {
+   const [verifyEmail, setVerifyEmail] = useState(false);
    const classes = useStyle()
    const navigate = useNavigate();
+   const [captaverify, setcaptaverify] = useState(false);
+
     
     const [fullData , setFullData] = useState({
         name : "",
@@ -17,6 +22,19 @@ const Form = (props) => {
         branch : "",
         isHostler : "",
     })
+
+
+    const verifyCallback = (response) => {
+        // console.log(response);
+        if (response) {
+            setcaptaverify(true);
+            console.log(response)
+        }
+    }
+
+    var callback = function () {
+        console.log('Done!!!!');
+    };
 
     const inputEvent = (event) => {
         // console.log(event.target.value);
@@ -33,26 +51,56 @@ const Form = (props) => {
         })
 
     };
+    const Validate = () => {
+        let Email = fullData.email;
+        let eletters = /^[a-z0-9](\.?[a-z0-9]){5,}@akgec\.ac\.in$/;
+            if((eletters.test(Email))){
+                setVerifyEmail(true);
+               }
+            else{
+                setVerifyEmail(false);
+                alert("Email not valid")
+            }
+            let Name=fullData.name;
+            let letters=/^[A-Za-z\s-, ]+$/;
+            if(!(Name.match(letters)))
+            {
+                alert("enter valid name");
+            }
+            
+    }
 
     const onSubmit = (event) => {
         const user = { ...fullData };
-        console.log(user)
-        axios.post('https://cine21.herokuapp.com/register', user)
-            .then(res => {
-                // console.log(res);
-                navigate('/submit');
-            })
-            .catch(err => {
-                // alert(err);
-                console.log(err);
-            })
+        console.log(user);
+        Validate();
+
+        // if(verifyEmail)
+        // {
+        //     alert("valid email");
+        // }
+        // else
+        // {
+        //     alert("Email is not valid");
+        // } 
+       if(setVerifyEmail){
+        if (verifyCallback) {
+            axios.post('https://cine21.herokuapp.com/register', user)
+             .then(res => {
+                 console.log(res);
+                 navigate('/submit');
+             })
+             .catch(err => {
+                 alert(err);
+                 console.log(err);
+             })
+         } else {
+             alert("Please verify captcha again");
+         }}
+        //  setcaptaverify(false);
         event.preventDefault();
     }
         
-    
-
-    
-
     return(
         <>
             <div id="formmain">
@@ -67,7 +115,7 @@ const Form = (props) => {
                                 <input id="input2" type="email" onChange={inputEvent} value={fullData.email} placeholder="College Email" name="email" required />
                                 <label htmlFor="text" className="label">College Email</label></div>
                             <div className="input">
-                                <input id="input3" type="text" minlength="7" maxlength="7" onChange={inputEvent} value={fullData.studentNumber} placeholder="Student Number" name="studentNumber" required />
+                                <input id="input3" type="text" pattern="[0-9]{7}"  minlength={7} maxlength={7} onChange={inputEvent} value={fullData.studentNumber} placeholder="Student Number" name="studentNumber" required />
                                 <label htmlFor="text"  className="label">Student Number</label></div>
 
                             <div className="inline">
@@ -90,8 +138,8 @@ const Form = (props) => {
                             </div>
                             
                             <div className="input">
-                                <input id="input4" onChange={inputEvent} value={fullData.phoneNumber} placeholder="Whatsapp Number" type="tel" minlength="10" maxlength="10" name="phoneNumber" required />
-                                <label htmlFor="text" className="label">Whatsapp Number</label>
+                                <input id="input4" pattern="[0-9]{10}" onChange={inputEvent} value={fullData.phoneNumber} placeholder="Whatsapp Number" type="text" minlength={10} maxlength={10} name="phoneNumber" required />
+                                <label  className="label">Whatsapp Number</label>
                             </div>
                             <select id="select3" onChange={inputEvent} value={fullData.domain} name="domain" required >
                                 <option value="domain">Domain</option>
@@ -99,22 +147,21 @@ const Form = (props) => {
                                 <option value="managerial">Managerial</option>
                                 <option value="designing">Designing</option>
                             </select>
-                            {/* <div id="recaptcha">
-                        <ReCAPTCHA 
-                     sitekey="6LcCLr8cAAAAAKifnVHkUR0oGWTq17fRwDfo1jwi"
-                     
-                    />  
-                   
-                    </div> */}
+                            <div  className="recaptcha">
+                        <ReCAPTCHA
+                            className="captcha"
+                            sitekey="6LfrfH8dAAAAABiFbOk5bnmZ6NeViR924GHM4_ml"
+                            render="explicit"
+                            verifyCallback={verifyCallback}
+                            onloadCallback={callback}
+                        />
+                    </div>
                             <div id="btn">
                                 <div className="btnborder">
-                                    <Button className={classes.button} type="submit" variant="outlined" size="large" id="submitbtn"><p>Submit</p> <i id="buffer" class="fa fa-spinner"  aria-hidden="true"></i></Button>
+                                    <Button className={classes.button} type="submit" variant="outlined" size="large" id="submitbtn"><span>Submit</span> <i id="buffer" class="fa fa-spinner"  aria-hidden="true"></i></Button>
                                 </div>
-
                             </div>
-
                         </form>
-
                     </div>
         </>
     );

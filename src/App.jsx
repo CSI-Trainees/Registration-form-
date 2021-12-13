@@ -7,6 +7,7 @@ const App = () => {
     return(
         <>
             <div id="main">
+            <script src="https://www.google.com/recaptcha/api.js?onload=onloadCallback&render=explicit" async defer></script>
                 <div id="main1">
                     <div id="mainleft">
                         

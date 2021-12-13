@@ -3,14 +3,12 @@
   padding: 0;
   font-family: 'Noto Sans JP', sans-serif;
 }
-body{
+/* body{
   height: 100vh;
-}
+} */
 #main{
    width: 100vw;
-   height: 100vh;
-   background-repeat: no-repeat;
-   background-size: cover;
+   /* height: 100vh; */
    display: flex;
    justify-content: center;
    align-items: center;
@@ -95,13 +93,12 @@ body{
    font-size: 50px;
    color: black;
    background: transparent;
-}
+} 
 
 
 /****************************************Form *************************************/
 
 #formm{
-   margin-top: 20px;
    height: 85%;
    width: 90%;
    border-radius: 25px;
@@ -118,7 +115,7 @@ body{
 }
 #formmain{
    width: 90%;
-   margin-top: 5%;
+   margin-top: -2%;
    margin-left: 5%;
 
 }
@@ -186,13 +183,10 @@ select option{
   justify-content: center;
   align-items: center;
 }
-#submitbtn{ 
-margin-top: 20px;
-margin-bottom: 20px;
-}
 #mainleft{
   background-image: url("././img/Group\ 56\ \(1\).svg") ;
   background-repeat: no-repeat;
+/* margin-top: 0.5%; */
 }
 /*********************************************new************************************/
 @import url('https://fonts.googleapis.com/css2?family=Jost&display=swap');
@@ -211,7 +205,6 @@ select option {
   text-shadow: 0 1px 0 rgba(0, 0, 0, 0.4);
 }
 #para {
-  margin-bottom: 30px;
   font-size: 12px;
   color: #787070;
 }
@@ -285,7 +278,13 @@ input:not(:placeholder-shown)~.label
   margin: 15px 0px 15px 0px;
 }
 p{
-  margin-bottom: 0;
+  margin-bottom: 1rem;
+}
+.recaptcha{
+  margin-top: 5%;
+width: 157%;
+transform: scale(0.65);
+transform-origin: 0 0;
 }
 /******************************************************Media Query ******************************************************/
      
@@ -295,8 +294,11 @@ p{
       display: none;
   }
   #main {
-      background:  linear-gradient(rgba(255, 255, 255, 0.808),rgba(255, 255, 255, 0.08)), url("./img/Group\ 56\ \(1\).svg") no-repeat ;
-      background-size:  99vw 82vh;
+      background:  linear-gradient(rgba(255, 255, 255, 0.5),rgba(255, 255, 255, 0.5)), url("./img/Group\ 56\ \(1\).svg") no-repeat ;
+      background-size:  85% 82vh;
+      background-repeat: no-repeat;
+      background-attachment: fixed;
+      background-position: center; 
   }
   #main1{
       width: 85%;
@@ -308,6 +310,7 @@ p{
   #mainright{
       width: 100%;
       height:70%;
+      background-color: transparent;
   }
   #registermain{
       font-size: 30px;
@@ -332,8 +335,9 @@ p{
       bottom: 20px;
   }
   input,select{
-    border-color: #113B7A;
+    /* border-color: #113B7A; */
     background: rgb(233, 232, 232);
+    
   }
   select{
     width: 50%;
@@ -341,8 +345,9 @@ p{
 
   #submitbtn{
     height: 7vh;
-    width: 17vw;
+    width: 27vw;
     font-size: 12px;
+    margin-left: 12%;
   }
   .inline{
     width: 92%;
@@ -355,7 +360,7 @@ p{
     z-index: -1;
   }
   input::placeholder{
-    color: #787070;
+    color: black;
     font-size: 0.9rem;
     position: relative;
     left: -8px;
@@ -366,10 +371,10 @@ p{
   input:focus::placeholder {
     color: transparent;
   } 
+  
 }
 @media (min-width:390px) and (max-width:1132px){
   #submitbtn {
-    
     background-color: transparent;
     position: relative;    right: 24.9vw;
   }
