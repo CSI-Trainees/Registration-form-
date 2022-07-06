@@ -7,10 +7,10 @@ import {useNavigate} from 'react-router-dom';
 import ReCAPTCHA from "react-google-recaptcha";
 
 const Form = (props) => {
-//    const [verifyEmail, setVerifyEmail] = useState(false);
+   const [verifyEmail, setVerifyEmail] = useState(false);
    const classes = useStyle()
    const navigate = useNavigate();
-//    const [captaverify, setcaptaverify] = useState(false);
+   const [captaverify, setcaptaverify] = useState(false);
 
     
     const [fullData , setFullData] = useState({
